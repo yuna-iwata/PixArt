@@ -1,23 +1,14 @@
-import {Text, View, TextInput, StyleSheet} from 'react-native';
+import {View} from 'react-native';
+import React from 'react';
+import {GoogleSigninButton} from '@react-native-google-signin/google-signin';
 
 export default function LoginScreen() {
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: 'black',
-      justifyContent: 'center',
-      alignContent: 'center',
-    },
-    text: {
-      color: 'white',
-    },
-  });
-
   return (
-    <View style={styles.container}>
-      <Text>login</Text>
-      <TextInput placeholder="Username" />
-      <TextInput placeholder="Password" secureTextEntry={true} />
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <GoogleSigninButton
+        size={GoogleSigninButton.Size.Wide}
+        color={GoogleSigninButton.Color.Dark}
+      />
     </View>
   );
 }
