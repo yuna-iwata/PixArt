@@ -1,5 +1,5 @@
-import {View, Text} from 'react-native';
-import React, {useState, useEffect, useCallback} from 'react';
+import {View} from 'react-native';
+import React, {useEffect, useCallback} from 'react';
 import {
   GoogleSignin,
   GoogleSigninButton,
@@ -9,7 +9,7 @@ import auth from '@react-native-firebase/auth';
 import {useAuth} from './hooks/useAuth';
 
 export default function LoginScreen() {
-  const {login, isLoggedIn} = useAuth();
+  const {login} = useAuth();
 
   const signIn = useCallback(async () => {
     try {
@@ -18,6 +18,8 @@ export default function LoginScreen() {
       const credential = auth.GoogleAuthProvider.credential(idToken);
 
       await auth().signInWithCredential(credential);
+      await login();
+      // add navigation to app page
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
@@ -30,7 +32,7 @@ export default function LoginScreen() {
         console.log('play services not available or outdated');
       } else {
         // some other error happened
-        console.log('some other error happened');
+        console.log(error);
       }
     }
   }, []);
@@ -49,9 +51,7 @@ export default function LoginScreen() {
       <GoogleSigninButton
         size={GoogleSigninButton.Size.Wide}
         color={GoogleSigninButton.Color.Dark}
-        onPress={() => {
-          signIn();
-        }}
+        onPress={signIn}
       />
     </View>
   );
