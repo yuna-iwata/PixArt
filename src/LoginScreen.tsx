@@ -1,24 +1,22 @@
 import {View, Text} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   GoogleSignin,
   GoogleSigninButton,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
+import {useAuth} from './hooks/useAuth';
 
 export default function LoginScreen() {
-  const [loggedIn, setloggedIn] = useState(false);
+  const {login, isLoggedIn} = useAuth();
 
-  const signIn = async () => {
+  const signIn = useCallback(async () => {
     try {
       await GoogleSignin.hasPlayServices();
-      const {accessToken, idToken} = await GoogleSignin.signIn();
-      setloggedIn(true);
-      const credential = auth.GoogleAuthProvider.credential(
-        idToken,
-        accessToken,
-      );
+      const {idToken} = await GoogleSignin.signIn();
+      const credential = auth.GoogleAuthProvider.credential(idToken);
+
       await auth().signInWithCredential(credential);
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -35,7 +33,7 @@ export default function LoginScreen() {
         console.log('some other error happened');
       }
     }
-  };
+  }, []);
 
   useEffect(() => {
     GoogleSignin.configure({
@@ -55,7 +53,6 @@ export default function LoginScreen() {
           signIn();
         }}
       />
-      {loggedIn && <Text>log in successful</Text>}
     </View>
   );
 }
