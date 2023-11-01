@@ -1,16 +1,19 @@
 import React from 'react';
 import MainStack from './src/MainStack';
 import 'react-native-gesture-handler';
-import {SafeAreaView} from 'react-native';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {NavigationContainer} from '@react-navigation/native';
+import {AuthProvider} from './src/contexts/AuthContext';
 
 function App(): JSX.Element {
   return (
-    <SafeAreaView>
-      <NavigationContainer>
-        <MainStack />
-      </NavigationContainer>
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <AuthProvider>
+        <NavigationContainer>
+          <MainStack />
+        </NavigationContainer>
+      </AuthProvider>
+    </SafeAreaProvider>
   );
 }
 
