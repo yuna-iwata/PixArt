@@ -14,9 +14,12 @@ const Stack = createStackNavigator<MainStackNavigatorParams>();
 const MainStack = () => {
   const {isLoggedIn} = useAuth();
   return (
-    <Stack.Navigator initialRouteName={isLoggedIn ? 'Auth' : 'Login'}>
-      <Stack.Screen name="Auth" component={AuthTabs} />
-      <Stack.Screen name="Login" component={LoginScreen} />
+    <Stack.Navigator>
+      {isLoggedIn ? (
+        <Stack.Screen name="Auth" component={AuthTabs} />
+      ) : (
+        <Stack.Screen name="Login" component={LoginScreen} />
+      )}
     </Stack.Navigator>
   );
 };
