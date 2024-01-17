@@ -7,11 +7,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface PixelArtAppTests : XCTestCase
+@interface PixArtTests : XCTestCase
 
 @end
 
-@implementation PixelArtAppTests
+@implementation PixArtTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL (^)(UIView *view))test
 {
