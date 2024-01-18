@@ -16,9 +16,17 @@ const MainStack = () => {
   return (
     <Stack.Navigator>
       {isLoggedIn ? (
-        <Stack.Screen name="Auth" component={AuthTabs} />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="Auth"
+          component={AuthTabs}
+        />
       ) : (
-        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="Login"
+          component={LoginScreen}
+        />
       )}
     </Stack.Navigator>
   );

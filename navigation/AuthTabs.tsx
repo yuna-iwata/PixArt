@@ -8,8 +8,12 @@ const Tab = createBottomTabNavigator();
 function AuthTabs() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen options={{headerShown: false}} name="Home" component={Home} />
+      <Tab.Screen
+        options={{headerShown: false}}
+        name="Profile"
+        component={Profile}
+      />
     </Tab.Navigator>
   );
 }
