@@ -1,6 +1,6 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import AuthTabs from './AuthTabs';
+import AuthTabs from '../navigation/AuthTabs';
 import LoginScreen from './LoginScreen';
 import {useAuth} from './hooks/useAuth';
 
