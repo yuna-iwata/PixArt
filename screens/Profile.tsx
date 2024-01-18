@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
-import {Text, View} from 'react-native';
+import {Text, View, Dimensions} from 'react-native';
 import React from 'react';
+import Carousel from 'react-native-reanimated-carousel';
 
 export const Profile = () => {
   const Root = styled.SafeAreaView`
@@ -21,7 +22,6 @@ export const Profile = () => {
   `;
   const HorizontalScroll = styled.View`
     margin-top: 50px;
-    padding: 30px;
     width: 100%;
     background-color: ${({theme}) => theme.colors.shadowGreen};
   `;
@@ -31,9 +31,9 @@ export const Profile = () => {
     border-radius: 20px;
   `;
   const StyledPixelArt = styled.Image`
-    width: 200px;
+    width: 100%;
     border-radius: 10px;
-    height: 200px;
+    height: 100%;
   `;
   const PixelText = styled.Text`
     font-family: VT323-Regular;
@@ -52,6 +52,10 @@ export const Profile = () => {
     font-size: 15px;
     color: ${({theme}) => theme.colors.secondaryText};
   `;
+  const Test = styled.View`
+    align-items: center;
+  `;
+  const width = Dimensions.get('window').width;
 
   return (
     <Root>
@@ -66,7 +70,26 @@ export const Profile = () => {
         </View>
       </ProfileView>
       <HorizontalScroll>
-        <StyledPixelArt source={require('../src/assets/Plant.png')} />
+        <Carousel
+          loop
+          width={width}
+          height={width}
+          autoPlay={true}
+          data={[...new Array(6).keys()]}
+          scrollAnimationDuration={2000}
+          autoPlayInterval={2000}
+          mode="parallax"
+          modeConfig={{
+            parallaxScrollingScale: 0.9,
+            parallaxScrollingOffset: 50,
+          }}
+          onSnapToItem={index => console.log('current index:', index)}
+          renderItem={() => (
+            <Test>
+              <StyledPixelArt source={require('../src/assets/Plant.png')} />
+            </Test>
+          )}
+        />
       </HorizontalScroll>
     </Root>
   );
