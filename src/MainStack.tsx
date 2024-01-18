@@ -1,6 +1,6 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import AuthTabs from './AuthTabs';
+import AuthTabs from '../navigation/AuthTabs';
 import LoginScreen from './LoginScreen';
 import {useAuth} from './hooks/useAuth';
 
@@ -16,9 +16,17 @@ const MainStack = () => {
   return (
     <Stack.Navigator>
       {isLoggedIn ? (
-        <Stack.Screen name="Auth" component={AuthTabs} />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="Auth"
+          component={AuthTabs}
+        />
       ) : (
-        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="Login"
+          component={LoginScreen}
+        />
       )}
     </Stack.Navigator>
   );
