@@ -31,9 +31,9 @@ export const Profile = () => {
     border-radius: 20px;
   `;
   const StyledPixelArt = styled.Image`
-    width: 100%;
+    width: 95%;
     border-radius: 10px;
-    height: 100%;
+    height: 95%;
   `;
   const PixelText = styled.Text`
     font-family: VT323-Regular;
@@ -52,9 +52,13 @@ export const Profile = () => {
     font-size: 15px;
     color: ${({theme}) => theme.colors.secondaryText};
   `;
-  const Test = styled.View`
+  const Border = styled.View`
     align-items: center;
+    justify-content: center;
+    background-color: ${({theme}) => theme.colors.shadowDarkGreen};
+    border-radius: 10px;
   `;
+
   const width = Dimensions.get('window').width;
 
   return (
@@ -80,14 +84,15 @@ export const Profile = () => {
           autoPlayInterval={2000}
           mode="parallax"
           modeConfig={{
-            parallaxScrollingScale: 0.9,
-            parallaxScrollingOffset: 50,
+            parallaxScrollingScale: 0.6,
+            parallaxScrollingOffset: 150,
+            parallaxAdjacentItemScale: 0.5,
           }}
           onSnapToItem={index => console.log('current index:', index)}
           renderItem={() => (
-            <Test>
+            <Border>
               <StyledPixelArt source={require('../src/assets/Plant.png')} />
-            </Test>
+            </Border>
           )}
         />
       </HorizontalScroll>
