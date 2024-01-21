@@ -22,7 +22,6 @@ export const Profile = () => {
   `;
   const HorizontalScroll = styled.View`
     margin-top: 50px;
-    width: 100%;
     background-color: ${({theme}) => theme.colors.shadowGreen};
   `;
   const StyledImage = styled.Image`
@@ -31,9 +30,13 @@ export const Profile = () => {
     border-radius: 20px;
   `;
   const StyledPixelArt = styled.Image`
-    width: 95%;
-    border-radius: 10px;
-    height: 95%;
+    width: 370px;
+    border-radius: 15px;
+    height: 370px;
+  `;
+  const StyledHeart = styled.Image`
+    width: 30px;
+    height: 30px;
   `;
   const PixelText = styled.Text`
     font-family: VT323-Regular;
@@ -41,6 +44,11 @@ export const Profile = () => {
 
   const LargeText = styled(PixelText)`
     font-size: 36px;
+  `;
+
+  const LikesText = styled(PixelText)`
+    font-size: 30px;
+    color: ${({theme}) => theme.colors.secondaryText};
   `;
 
   const PronounsText = styled(PixelText)`
@@ -53,10 +61,17 @@ export const Profile = () => {
     color: ${({theme}) => theme.colors.secondaryText};
   `;
   const Border = styled.View`
-    align-items: center;
-    justify-content: center;
     background-color: ${({theme}) => theme.colors.shadowDarkGreen};
-    border-radius: 10px;
+    border-radius: 15px;
+    padding: 10px;
+    width: 100%;
+    gap: 20px;
+    height: 115%;
+  `;
+  const LikesSection = styled.View`
+    justify-content: flex-start;
+    gap: 20px;
+    flex-direction: row;
   `;
 
   const width = Dimensions.get('window').width;
@@ -92,6 +107,12 @@ export const Profile = () => {
           renderItem={() => (
             <Border>
               <StyledPixelArt source={require('../src/assets/Plant.png')} />
+              <LikesSection>
+                <StyledHeart
+                  source={require('../src/assets/heart-filled.png')}
+                />
+                <LikesText>1,453</LikesText>
+              </LikesSection>
             </Border>
           )}
         />
