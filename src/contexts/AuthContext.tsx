@@ -6,7 +6,8 @@ export const AuthContext = createContext<AuthContext | undefined>(undefined);
 
 interface AuthContext {
   isLoggedIn: boolean;
-  login: (credential: FirebaseAuthTypes.AuthCredential) => void;
+  loginWithGoogle: (credential: FirebaseAuthTypes.AuthCredential) => void;
+  login: () => void;
 }
 
 export const AuthProvider: React.FC<{children: React.ReactNode}> = ({
@@ -14,7 +15,7 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({
 }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const login = useCallback(
+  const loginWithGoogle = useCallback(
     async (credential: FirebaseAuthTypes.AuthCredential) => {
       setIsLoggedIn(true);
       await AsyncStorage.setItem('token', credential.toString());
@@ -22,12 +23,18 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({
     [],
   );
 
+  const login = useCallback(() => {
+    setIsLoggedIn(true);
+    //set the credential to async storage later
+  }, []);
+
   const value = useMemo(
     () => ({
       isLoggedIn,
+      loginWithGoogle,
       login,
     }),
-    [isLoggedIn, login],
+    [isLoggedIn, loginWithGoogle, login],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

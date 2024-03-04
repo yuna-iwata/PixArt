@@ -1,4 +1,5 @@
 import {View} from 'react-native';
+import styled from 'styled-components/native';
 import React, {useEffect, useCallback} from 'react';
 import {
   GoogleSignin,
@@ -6,19 +7,19 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
-import {useAuth} from './hooks/useAuth';
+import {useAuth} from '../hooks/useAuth';
 
 export default function LoginScreen() {
-  const {login} = useAuth();
+  const {loginWithGoogle} = useAuth();
 
-  const signIn = useCallback(async () => {
+  const signInWithGoogle = useCallback(async () => {
     try {
       await GoogleSignin.hasPlayServices();
       const {idToken} = await GoogleSignin.signIn();
       const credential = auth.GoogleAuthProvider.credential(idToken);
 
       await auth().signInWithCredential(credential);
-      await login(credential);
+      await loginWithGoogle(credential);
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         console.log('user cancelled the login flow');
@@ -30,7 +31,7 @@ export default function LoginScreen() {
         console.log(error);
       }
     }
-  }, [login]);
+  }, [loginWithGoogle]);
 
   useEffect(() => {
     GoogleSignin.configure({
@@ -41,12 +42,37 @@ export default function LoginScreen() {
     });
   }, []);
 
+  const signIn = useCallback(() => {}, []);
+
+  const UsernameInput = styled.TextInput`
+    height: 30px;
+    border-color: black;
+    border-width: 1px;
+    width: 80%;
+  `;
+
+  const LogInButton = styled.TouchableOpacity`
+    height: 20px;
+    width: 80%;
+    background: #04aa6d;
+    color: white;
+  `;
+
+  const ButtonText = styled.Text`
+    color: white;
+  `;
+
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <UsernameInput placeholder="Username" />
+      <UsernameInput placeholder="Password" />
+      <LogInButton onPress={signIn}>
+        <ButtonText>Log in</ButtonText>
+      </LogInButton>
       <GoogleSigninButton
         size={GoogleSigninButton.Size.Wide}
         color={GoogleSigninButton.Color.Dark}
-        onPress={signIn}
+        onPress={signInWithGoogle}
       />
     </View>
   );

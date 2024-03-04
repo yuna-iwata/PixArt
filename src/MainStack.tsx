@@ -1,12 +1,13 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import AuthTabs from '../navigation/AuthTabs';
-import LoginScreen from './LoginScreen';
+import LoginScreen from './signIn/LoginScreen';
 import {useAuth} from './hooks/useAuth';
+import SignUpScreen from './signIn/SignUpScreen';
 
 export type MainStackNavigatorParams = {
   Auth: undefined;
-  Login: undefined;
+  SignUp: undefined;
 };
 
 const Stack = createStackNavigator<MainStackNavigatorParams>();
@@ -24,8 +25,8 @@ const MainStack = () => {
       ) : (
         <Stack.Screen
           options={{headerShown: false}}
-          name="Login"
-          component={LoginScreen}
+          name="SignUp"
+          component={SignUpScreen}
         />
       )}
     </Stack.Navigator>

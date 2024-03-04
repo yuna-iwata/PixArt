@@ -6,17 +6,21 @@ import {NavigationContainer} from '@react-navigation/native';
 import {AuthProvider} from './src/contexts/AuthContext';
 import {ThemeProvider} from 'styled-components/native';
 import theme from './theme/theme';
+import {client} from './src/apollo';
+import {ApolloProvider} from '@apollo/client';
 
 function App(): JSX.Element {
   return (
     <SafeAreaProvider>
-      <ThemeProvider theme={theme}>
-        <AuthProvider>
-          <NavigationContainer>
-            <MainStack />
-          </NavigationContainer>
-        </AuthProvider>
-      </ThemeProvider>
+      <ApolloProvider client={client}>
+        <ThemeProvider theme={theme}>
+          <AuthProvider>
+            <NavigationContainer>
+              <MainStack />
+            </NavigationContainer>
+          </AuthProvider>
+        </ThemeProvider>
+      </ApolloProvider>
     </SafeAreaProvider>
   );
 }

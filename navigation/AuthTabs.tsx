@@ -11,6 +11,11 @@ function AuthTabs() {
       <Tab.Screen options={{headerShown: false}} name="Home" component={Home} />
       <Tab.Screen
         options={{headerShown: false}}
+        name="Create"
+        component={Home}
+      />
+      <Tab.Screen
+        options={{headerShown: false}}
         name="Profile"
         component={Profile}
       />
